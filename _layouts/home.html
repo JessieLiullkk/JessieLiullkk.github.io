@@ -1,61 +1,87 @@
-<!DOCTYPE html>
+---
+layout: page
+# The Home page layout
+# v2.0
+# https://github.com/cotes2020/jekyll-theme-chirpy
+# © 2017-2019 Cotes Chung
+# MIT Licensed
+---
 
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js" lang="{{ site.lang }}">
-<!--<![endif]-->
 
-<head>
-    {% include common/meta.html %}
-    <link href='{{ site.baseurl }}/assets/stylesheets/home.css' rel="stylesheet" type="text/css">
-    {% include common/libraries.html %}
-    {% if site.google_tag_manager %}
-        {% include common/gtm-head.html %}
-    {% endif %}
-</head>
+{% assign pinned = site.posts | where_exp: "item", "item.pin == true"  %}
+{% assign default = site.posts | where_exp: "item", "item.pin != true"  %}
+{% assign posts = "" | split: "" %}
 
-<body>
-    {% if site.google_tag_manager %}
-        {% include common/gtm-body.html %}
-    {% endif %}
+<!-- Get pinned posts -->
 
-    <ul id="menu">
-        <li data-menuanchor="bio"><a href="#bio">Biography</a></li>
-        <li data-menuanchor="social"><a href="#social">Social Links</a></li>
-    </ul>
+{% assign offset = paginator.page | minus: 1 | times: paginator.per_page %}
+{% assign pinned_num = pinned.size | minus: offset %}
 
-    <div id="section0" class="section" data-name="bio">
+{% if pinned_num > 0 %}
+  {% for i in (offset..pinned.size) limit: pinned_num %}
+    {% assign posts = posts | push: pinned[i] %}
+  {% endfor %}
+{% else %}
+  {% assign pinned_num = 0 %}
+{% endif %}
 
-        {% include common/notices.html %}
 
-        <div class="headings animated fadeInLeft">
-            {% if site.home.section1 %}{{ site.home.section1 }}{% endif %}
-            {% if site.home.section2 %}{{ site.home.section2 }}{% endif %}
-            {% if site.home.section3 %}{{ site.home.section3 }}{% endif %}
-        </div>
-        <a class="btn-continue animated bounce" title="{{ site.data.i18n[site.lang].more }}" href="#social"></a>
+<!-- Get default posts -->
+
+{% assign default_beg = offset | minus: pinned.size %}
+
+{% if default_beg < 0 %}
+  {% assign default_beg = 0 %}
+{% endif %}
+
+{% assign default_num = paginator.posts | size | minus: pinned_num  %}
+{% assign default_end = default_beg | plus: default_num | minus: 1 %}
+
+{% if default_num > 0 %}
+  {% for i in (default_beg..default_end) %}
+    {% assign posts = posts | push: default[i] %}
+  {% endfor %}
+{% endif %}
+
+
+<div id="post-list">
+
+{% for post in posts %}
+
+  <div class="post-preview">
+    <div class="d-flex justify-content-between pr-xl-2">
+      <h1><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h1>
+      {% if post.pin == true %}
+        <i class="fas fa-thumbtack fa-fw text-muted mt-1 ml-2 mt-xl-2" data-toggle="tooltip" data-placement="left"
+        title="Pinned"></i>
+      {% endif %}
+    </div>
+    <div class="post-content">
+      <p>
+        {% include no-linenos.html content=post.content %}
+        {{ content | markdownify | strip_html | truncate: 200 }}
+      </p>
     </div>
 
-    <div id="section1" class="section" data-name="social">
-        <h1 class="animated hidden">
-            <a class="btn-enter btn-light" title="{{ site.data.i18n[site.lang].enter_blog }}" href="{{ site.paths.blog | relative_url }}">{{ site.data.i18n[site.lang].enter_blog }}</a>
-        </h1>
-        <div class="social-links animated hidden">
-            <a class="btn-light ico-rss" href="{{ site.baseurl }}/feed.xml" rel="me" target="_blank" title="feed"></a>
-            {% if site.author.email %}
-                <a class="btn-light ico-gmail" href="mailto:{{ site.author.email }}" rel="me" target="_blank" title="email"></a>
-            {% endif %}
-            {% for link in site.author.social_links %}
-                {% if link.url %}
-                    <a class="btn-light ico-{{ link.name }}" href="{{ link.url }}" rel="me" target="_blank" title="{{ link.name }}"></a>
-                {% endif %}
-            {% endfor %}
-        </div>
+    <div class="post-meta text-muted">
+      <!-- posted date -->
+      <i class="far fa-clock fa-fw"></i>
+      {% include timeago.html date=post.date tooltip=true %}
+
+      <!-- page views -->
+      {% if site.google_analytics.pv.enabled %}
+      <i class="far fa-eye fa-fw"></i>
+      <span id="pv_{{-post.title-}}" class="pageviews">
+        <i class="fas fa-spinner fa-spin fa-fw"></i>
+      </span>
+      {% endif %}
     </div>
+  </div> <!-- .post-review -->
 
-    {% include home/scripts.html %}
-</body>
+{% endfor %}
 
-</html>
+</div> <!-- #post-list -->
+
+{% if paginator.total_pages > 0 %}
+  {% include post-paginator.html %}
+{% endif %}
