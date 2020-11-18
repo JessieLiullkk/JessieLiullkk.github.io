@@ -1,5 +1,10 @@
 ﻿---
-title: 关于React你必须知道的事
+title: Getting Started
+author: Cotes Chung
+date: 2019-08-09 20:55:00 +0800
+categories: [Blogging, Tutorial]
+tags: [getting started]
+pin: true
 ---
 
 ** 一、React component的两种写法**
