@@ -1,5 +1,5 @@
 ---
-title: Getting Startedsss
+title: Getting Started1
 author: Cotes Chung
 date: 2019-08-09 20:55:00 +0800
 categories: [Blogging, Tutorial]
@@ -7,171 +7,145 @@ tags: [getting started]
 pin: true
 ---
 
-** 一、React component的两种写法**
-1. 函数式定义的无状态组件
-特点：没有state/生命周期
-```bash
-export default function App(props) {
-  return <input />
-}
-```
-2.ES6方式定义的组件
-```bash
-class List extends React.Component {
-    render() {
-        return <div>我是一个es6方式定义的react组件</div>
-    }
-}
-```
-** 使用场景：**
-----无状态组件适用于纯展示或props传递渲染时
 
-** 二、React.Component 绑定方法的几种方法**
-1.在construct中绑定
-```bash
-class List extends React.Component {
-    constructor(props) {
-        super(props)
-        this.onClickList = this.onClickList.bind(this)
-    }
-    onClickList() {
-        console.log('我被点了')
-    }
-    render() {
-        return <div onClick={this.onClickList}>点我点我点我</div>
-    }
-}
-```
-2.在render中bind
-```bash
-class List extends React.Component {
-    onClickList() {
-        console.log('我被点了')
-    }
-    render() {
-        return <div onClick={this.onClickList.bind(this)}>点我点我点我</div>
-    }
-}
-```
-3.方法使用箭头函数，不需要bind
-```bash
-class List extends React.Component {
-    onClickList = () => {
-        console.log('我被点了')
-    }
-    render() {
-        return <div onClick={this.onClickList}>点我点我点我</div>
-    }
-}
-```
-4.render内用箭头函数
-```bash
-class List extends React.Component {
-    onClickList() {
-        console.log('我被点了')
-    }
-    render() {
-        return <div onClick={() => this.onClickList()}>点我点我点我</div>
-    }
-}
-```
-** 对于在方法上传参**
-```bash
-<button onClick={this.handleClick.bind(this, id)} />
-<button onClick={() => this.handleClick(id)} />
-```
-** 三、为什么循环渲染组件的要加上key**
-key相同则后面的会被丢弃，不会渲染---- react根据key来决定是销毁重新创建组件还是更新组件
-	* key相同，若组件属性有所变化，则react只更新组件对应的属性；没有变化则不更新。
-	* key值不同，则react先销毁该组件(有状态组件的componentWillUnmount会执行)，然后重新创建该组件（有状态组件的constructor和componentWillUnmount都会执行）
-	*不推荐使用map方法的index作为key，因为这个key不是唯一标识当前组件,最好使用后台返回的id
-```bash
-class App extends React.Component{
-  state={
-    data:[1,2,3,4]
-  }
-  componentDidMount(){
-    //全部re-render
-    setTimeout(()=>{
-      this.setState({
-        data:[4,1,2,3]     
-    })},10000)
-    
-    //只会re-render最后一个div
-    setTimeout(()=>{
-      this.setState({
-        data:[1,2,3,5]     
-    })},10000)
-  }
-  render(){
-    return(
-      <div>{      
-        this.state.data.map((item,index)=>(
-          <div key={index}>{item}</div>
-        ))
-      }
-      </div>
-      
-    )
-  }
-}
-export default App;
-```
-** 四、React的ref揭秘**
-** ref的三种用法:** 字符串(已废弃) ；回调函； React.createRef() （React16.3提供）
-1.字符串:要将获取dom节点写在未render之前的生命周期内，在render之前dom节点未渲染，会报错
-```bash
-handle=()=>{
-    console.log(this.refs.textInput.value)
-  }
-  render() {
-      return (
-          <input ref="textInput" onChange={this.handle}/>
-      )
-  }
-```
-2.回调函数：函数的参数是dom节点或组件实例，不能再render之前调用
-```bash
-class App extends Component {
-  componentDidMount() {
-      console.log(this.textInput.value)
-  }
-  handle=()=>{
-    console.log(this.textInput.value)
-  }
-  render() {
-      return (
-          <input ref={(inputs)=>{this.textInput=inputs}} onChange={this.handle} />
-      )
-  }
-}
-export default App;
-```
-3.React.createRef():this.myRef.current可以拿到input实例
-```bash
-class App extends React.Component{
-  constructor(props){
-      super(props);
-      this.myRef=React.createRef();
-  }
-  componentDidMount(){
-      console.log(this.myRef.current.value); // 2
-  }
-  render(){
-      return <input ref={this.myRef} value='2'/>
-  }
-}
-export default App;
+## Installation
+
+[Fork **Chirpy**](https://github.com/cotes2020/jekyll-theme-chirpy/fork) on GitHub, rename the repository to `USERNAME.github.io` (where `USERNAME` is your GitHub username), and then open terminal and clone the fork to local by:
+
+```terminal
+$ git clone https://github.com/USERNAME/USERNAME.github.io.git -b master --single-branch
 ```
 
-### **注意：**
-ref在函数式组件上不可使用，函数式组件无实例
+### Setting up the local envrionment
 
-**五、props/state/this.的区别**
-props:父子组件之间的传递，且在子组件内不可更改
-state:当前组件内的状态，
-this.:当时面试官问我这个的时候我有点发懵，还有this.的用法？？回来一想，我觉得自己被props和state固话了一种模式，觉得组件中的数据只能存放在这两种模式下
-this.可以放定时器的id,组件内调用函数也是用this.方法(),this.setState({})
-参考：https://www.jianshu.com/p/4d2838ae7b29
+If you would like to run or build the project on your local machine, please follow the [Jekyll Docs](https://jekyllrb.com/docs/installation/) to complete the installation of `Ruby`, `RubyGems` and `Bundler`. 
 
+Before running or building for the first time, please complete the installation of the Jekyll plugins. Go to the root directory of project and run:
 
+```terminal
+$ bundle install
+```
+
+`bundle` will automatically install all the dependencies specified by `Gemfile`.
+
+In order to generate some extra files (_categories_, _tags_ and _last modified list_), we need to use some tool scripts. And they require dependency package [yq](https://github.com/mikefarah/yq#install) to be installed. What's more, if your machine is running Debian or macOS, you also need to install [GNU coreutils](https://www.gnu.org/software/coreutils/).
+
+- on Debian:
+
+  ```console
+  $ sudo apt-get install coreutils
+  ```
+
+- on macOS:
+
+  ```console
+  $ brew install coreutils
+  ```
+
+### Setting up Docker environment (optional)
+
+If you're a loyal fan of [**Docker**](https://www.docker.com/) or just too lazy to install the packages mentioned in [_Setting up the local envrionment_](#setting-up-the-local-envrionment), please make sure you have **Docker Engine** installed and running, and then get Docker image `jekyll/jekyll` from Docker Hub by the following command:
+
+```console
+$ docker pull jekyll/jekyll:latest
+```
+
+## Usage
+
+Running [**Chirpy**](https://github.com/cotes2020/jekyll-theme-chirpy/) requires some extra files, which cannot be generated by Jekyll native commands, so please strictly follow the methods mentioned below to run or deploy your website.
+
+### Initialization
+
+Go to the root directory of the project and start initialization:
+
+```console
+$ bash tools/init.sh
+```
+
+> **Note**: If you not intend to deploy it on GitHub Pages, append parameter option `--no-gh` at the end of the above command.
+
+What it does is:
+
+1. Remove some files or directories from your repository:
+
+    - `.travis.yml`
+    - files under `_posts`
+    - folder `docs`
+
+2. If you use the `--no-gh` option, the directory `.github` will be deleted. Otherwise, setup the GitHub Action workflow by removing extension `.hook` of `.github/workflows/pages-deploy.yml.hook`, and then remove the other files and directories in folder `.github`. 
+
+3. Automatically create a commit to save the changes.
+
+### Configuration
+
+Generally, go to `_config.yml` and configure the variables as needed. Some of them are typical options:
+
+- `url`
+- `avatar`
+- `timezone`
+- `theme_mode`
+
+### Run Locally
+
+You may want to preview the site contents before publishing, so just run it by:
+
+```terminal
+$ bash tools/run.sh
+```
+
+Then open a browser and visit to <http://localhost:4000>.
+
+Few days later, you may find that the file changes does not refresh in real time by using `run.sh`. Don't worry, the advanced option `-r` (or `--realtime`) will solve this problem, but it requires [**fswatch**](http://emcrisostomo.github.io/fswatch/) to be installed on your machine.
+
+### Run on Docker
+
+Run the site on Docker with the following command:
+
+```terminal
+$ docker run --rm -it \
+    --volume="$PWD:/srv/jekyll" \
+    -p 4000:4000 jekyll/jekyll \
+    bash tools/run.sh --docker
+```
+
+Please note that on Docker containers, you'll lose the real-time refresh feature.
+
+### Deployment
+
+Before the deployment begins, checkout the file `_config.yml` and make sure the `url` is configured correctly. Furthermore, if you prefer the [_project site_](https://help.github.com/en/github/working-with-github-pages/about-github-pages#types-of-github-pages-sites) and don't use a custom domain, or you want to visit your website with a base url on a web server other than **GitHub Pages**, remember to change the `baseurl` to your project name that starting with a slash. For example, `/project`.
+
+Assuming you have already gone through the [initialization](#initialization), you can now choose ONE of the following methods to deploy your website.
+
+#### Deploy on GitHub Pages
+
+For security reasons, GitHub Pages build runs on `safe` mode, which restricts us from using tool scripts to generate additional page files. Therefore, we can use **GitHub Actions** to build the site, store the built site files on a new branch, and use that branch as the source of the Pages service.
+
+1. Push any commit to `origin/master` to trigger the GitHub Actions workflow. Once the build is complete and successful, a new remote branch named `gh-pages` will appear to store the built site files.
+
+2. Browse to your repository on GitHub and choose the branch `gh-pages` as the [publishing source](https://docs.github.com/en/github/working-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) throught _Settings_ → _Options_ → _GitHub Pages_:
+    ![gh-pages-sources](/assets/img/sample/gh-pages-sources.png){: width="650" class="normal"}
+
+3. Visit your website at the address indicated by GitHub.
+
+#### Deploy on Other Platforms
+
+On platforms other than GitHub, we cannot enjoy the convenience of **GitHub Actions**. Therefore, we should build the site locally (or on some other 3rd-party CI platform) and then put the site files on the server.
+
+Go to the root of the source project, build your site by:
+
+```console
+$ bash tools/build.sh
+```
+
+> **Note**: The output path can be specified with the option `-d`.
+
+Or, build the site with Docker by:
+
+```terminal
+$ docker run --rm -it \
+    --volume="$PWD:/srv/jekyll" \
+    jekyll/jekyll \
+    bash tools/build.sh --docker
+```
+
+Unless you specified the output path, the generated site files will be placed in folder `_site` of the project's root directory. Now you should upload those files to your web server.
