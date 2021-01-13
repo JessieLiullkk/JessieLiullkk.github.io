@@ -1,6 +1,6 @@
 ---
 title: React Hook
-tags: React-Hook,useMemo,useCallback
+tags: [React-Hook, useMemo, useCallback]
 renderNumberedHeading: true
 grammar_cjkRuby: true
 ---
