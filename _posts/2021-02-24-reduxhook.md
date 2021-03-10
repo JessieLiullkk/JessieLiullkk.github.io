@@ -5,17 +5,6 @@ renderNumberedHeading: true
 grammar_cjkRuby: true
 ---
 
-const store = createStore(); params: 
-createLogger
-applyMiddleware
-
-store.dispatch  params
-
-
-useSelector
-useDispatch
-useStore
-
 ##### React-Redux
 UI组件负责显示UI呈现，容器组件负责管理数据和业务逻辑
  - connect(mapStateToProps, mapDispatchtoProps)(Component)： 连接UI组件和容器组件
@@ -36,6 +25,8 @@ UI组件负责显示UI呈现，容器组件负责管理数据和业务逻辑
    const dispatch = useDispatch();
    const actions = mapDispatchToProps(dispatch);
    ```
+   
+ - useStore 获取整个store
 
 ##### Context - 创建上下文
 ```bash
