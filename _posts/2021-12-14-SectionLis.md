@@ -1,6 +1,6 @@
 ---
-title: React Native - SectionList, FlatList
-tags: React-Native, SectionList, FlatList
+title: React Native - SectionList, scrollToLocation
+tags: React-Native, SectionList
 category: /小书匠/日记/2021-12
 renderNumberedHeading: true
 grammar_cjkRuby: true
