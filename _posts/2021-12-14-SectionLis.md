@@ -14,7 +14,7 @@ sectionListRef.current?.scrollToLocation({
                 viewOffset: -listHeaderHeight,
  });
 ```
-![enter description here](./images/1639461789316.png)
+![enter description here](https://raw.githubusercontent.com/JessieLau-CT/images/main/小书匠/1639464471249.png)
 
 
 ##### Why `scrollToLocation` function cannot work?
