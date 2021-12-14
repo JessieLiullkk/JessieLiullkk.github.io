@@ -9,9 +9,8 @@ grammar_cjkRuby: true
 # SectionList
 ```
 sectionListRef.current?.scrollToLocation({
-                sectionIndex: 0,
-                itemIndex: 1,
-                viewOffset: -listHeaderHeight,
+	sectionIndex: 0,
+	itemIndex: 1,
  });
 ```
 ![enter description here](https://raw.githubusercontent.com/JessieLau-CT/images/main/小书匠/1639464471249.png)
