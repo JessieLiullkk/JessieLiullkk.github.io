@@ -44,5 +44,10 @@ Index4: title - "Animal"
 
 ##### Without ScrollToLocation, how to scroll to specified position by SectionList?
 ```markdown
-sectionListRef.current?.getScrollResponder()?.scrollTo({y: positionY});
+1. sectionListRef.current?.getScrollResponder()?.scrollTo({y: positionY});
+2. sectionListRef.current?.scrollToLocation({
+	sectionIndex: 0,
+	itemIndex: 0,
+	viewOffset: -positionY,
+ });
 ```
