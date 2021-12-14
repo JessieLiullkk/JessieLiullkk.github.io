@@ -32,6 +32,7 @@ sectionListRef.current?.scrollToLocation({
 
 ##### How to set `itemIndex` in scrollToLocation?
 ```markdown
+## preconditio: Each item has fixed height.
 _SectionList contains sectionHeader and sectionFooter, so no matter whether sectionHeader or sectionFootor has been set. We should also count it._
 > Example
 const dataSource = [{title: "Fruit", data: ["apple","banner"]},{title: "Animal", data: ["panda","pig"]}]
