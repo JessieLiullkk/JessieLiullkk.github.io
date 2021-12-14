@@ -42,7 +42,7 @@ Index3: this first section footer
 Index4: title - "Animal"
 ```
 
-##### Without ScrollToLocation, how to scroll to specified position?
+##### Without ScrollToLocation, how to scroll to specified position by SectionList?
 ```markdown
-
+sectionListRef.current?.getScrollResponder()?.scrollTo({y: positionY});
 ```
