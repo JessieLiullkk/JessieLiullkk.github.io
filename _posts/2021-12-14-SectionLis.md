@@ -20,7 +20,7 @@ sectionListRef.current?.scrollToLocation({
 ```markdown
 ## Root cause
 * scrollToLocation should be used with getItemLayout and onScrollToIndexFailed, otherwise it cannot scroll to locations outside the render window.
-* If each element hasn't a fixed height, it cannot scroll to specific sectionIndex or itemIndex.
+* If each element hasn't a fixed height, before component has already mounted, it cannot scroll to specific sectionIndex or itemIndex.
   
 ## scrollToLocation params
 * animated (default: true): Whether the list should do an animation while scrolling
