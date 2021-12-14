@@ -21,6 +21,7 @@ sectionListRef.current?.scrollToLocation({
 ```markdown
 ## Root cause
 * scrollToLocation should be used with getItemLayout and onScrollToIndexFailed, otherwise it cannot scroll to locations outside the render window.
+* If each element hasn't a fixed height, it cannot scroll to specific sectionIndex or itemIndex.
   
 ## scrollToLocation params
 * animated (default: true): Whether the list should do an animation while scrolling
@@ -40,4 +41,9 @@ Index1: "apple"
 Index2: "banner",
 Index3: this first section footer
 Index4: title - "Animal"
+```
+
+##### Without ScrollToLocation, how to scroll to specified position?
+```markdown
+
 ```
