@@ -32,14 +32,14 @@ sectionListRef.current?.scrollToLocation({
 
 ##### How to set `itemIndex` in scrollToLocation?
 ```markdown
-_SectionList contains Header and Footer, so no matter whether Header or Footor has been set. We should also count it._
+_SectionList contains sectionHeader and sectionFooter, so no matter whether sectionHeader or sectionFootor has been set. We should also count it._
 > Example
 const dataSource = [{title: "Fruit", data: ["apple","banner"]},{title: "Animal", data: ["panda","pig"]}]
-Index0: title - "Fruit"
+Index0: sectionHeader - title - "Fruit"
 Index1: "apple"
 Index2: "banner",
 Index3: this first section footer
-Index4: title - "Animal"
+Index4: sectionHeader - title - "Animal"
 ```
 
 ##### Without ScrollToLocation, how to scroll to specified position by SectionList?
