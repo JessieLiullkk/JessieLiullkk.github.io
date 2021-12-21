@@ -22,6 +22,45 @@ const calculate = useMemo(() => {
 
 meas: 用useCallback包裹的函数只有在依赖项更新时才更新。
 
-#### useEffect return
+#### useEffect callback
 
-![enter description here](https://raw.githubusercontent.com/JessieLau-CT/images/main/小书匠/1640068355887.png)
+### deps is [ ]
+```markdown
+componentWillUnmount will trigger the callback
+```
+### deps will change 
+
+![useEffect callback](https://raw.githubusercontent.com/JessieLau-CT/images/main/小书匠/1640068355887.png)
+
+```markdown
+import React, { useEffect, useState } from "react";
+import "./styles.css";
+
+function RepeatMessage({ message }) {
+  useEffect(() => {
+    const id = setInterval(() => {
+      console.log(message);
+    }, 2000);
+    return () => {
+      clearInterval(id);
+    };
+  }, [message]);
+
+  return <div className="message">I'm logging to console "{message}"</div>;
+}
+
+export default function App() {
+  const [message, setMessage] = useState("Hello, World!");
+
+  return (
+    <div className="App">
+      <h3>Type the message to log to console</h3>
+      <input
+        type="text"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+      />
+      <RepeatMessage message={message} />
+    </div>
+  );
+```
