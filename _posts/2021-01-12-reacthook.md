@@ -22,3 +22,6 @@ const calculate = useMemo(() => {
 
 meas: 用useCallback包裹的函数只有在依赖项更新时才更新。
 
+#### useEffect return
+
+![enter description here](https://raw.githubusercontent.com/JessieLau-CT/images/main/小书匠/1640068355887.png)
