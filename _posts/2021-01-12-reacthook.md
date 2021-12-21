@@ -64,3 +64,5 @@ export default function App() {
     </div>
   );
 ```
+
+refer to: https://dmitripavlutin.com/react-useeffect-explanation/
