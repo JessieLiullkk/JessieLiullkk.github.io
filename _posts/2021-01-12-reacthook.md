@@ -22,8 +22,12 @@ const calculate = useMemo(() => {
 
 meas: 用useCallback包裹的函数只有在依赖项更新时才更新。
 
-#### useEffect callback
-
+#### useEffect 
+```markdown
+A) Not provided: the side-effect runs after every rendering.
+B) An empty array [ ]: the side-effect runs once after the initial rendering.
+C) Has props or state values [prop1, prop2, ..., state1, state2]: the side-effect runs only when any depenendecy value changes.
+```
 ### deps is [ ]
 ```markdown
 componentWillUnmount will trigger the callback
